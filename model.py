@@ -26,6 +26,7 @@ import numpy as np
 import pandas as pd
 import pickle
 import json
+import datetime as dt
 
 def _preprocess_data(data):
     """Private helper function to preprocess data for model prediction.
@@ -58,7 +59,37 @@ def _preprocess_data(data):
     # ---------------------------------------------------------------
 
     # ----------- Replace this code with your own preprocessing steps --------
-    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
+
+
+    # Transform time feature to get more usable Features
+    
+
+    # changing the date object to datetime
+    feature_vector_df['time'] = pd.to_datetime(feature_vector_df['time'])
+   
+    # Creating new feature day
+    feature_vector_df['Day'] = feature_vector_df['time'].dt.day
+
+    # Creating new feature day month
+    feature_vector_df['Month'] = feature_vector_df['time'].dt.month
+
+    # Creating new feature day year
+    feature_vector_df['Year'] = feature_vector_df['time'].dt.year
+
+    # Creating new feature day hour
+    feature_vector_df['Start_hour'] = feature_vector_df['time'].dt.hour
+
+    # Creating new feature day Drop Feature
+    feature_vector_df.drop(['time'] , axis=1 , inplace=True)
+
+    
+    predict_vector = feature_vector_df[['Madrid_wind_speed', 'Seville_clouds_all', 'Bilbao_wind_deg',
+                                        'Seville_rain_1h', 'Barcelona_rain_3h', 'Valencia_snow_3h',
+                                        'Bilbao_pressure', 'Bilbao_weather_id', 'Valencia_temp_min', 'Day',
+                                        'Month', 'Year', 'Start_hour', 'Valencia_wind_speed']]
+
+
+
     # ------------------------------------------------------------------------
 
     return predict_vector
