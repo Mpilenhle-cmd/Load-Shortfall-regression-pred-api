@@ -1,4 +1,4 @@
-"""
+b"""
     Simple file to create a sklearn model for deployment in our API
 
     Author: Explore Data Science Academy
@@ -21,10 +21,15 @@ from sklearn.ensemble import RandomForestRegressor
 train = pd.read_csv('./data/df_train.csv')
 
 y_train = train[['load_shortfall_3h']]
-X_train = train[['Madrid_wind_speed', 'Seville_clouds_all', 'Bilbao_wind_deg',
-                                        'Seville_rain_1h', 'Barcelona_rain_3h', 'Valencia_snow_3h',
-                                        'Bilbao_pressure', 'Bilbao_weather_id', 'Valencia_temp_min', 'Day',
-                                        'Month', 'Year', 'Start_hour', 'Valencia_wind_speed']]
+X_train = train[['Madrid_wind_speed',
+ 'Seville_clouds_all',
+ 'Bilbao_wind_deg',
+ 'Seville_rain_1h',
+ 'Barcelona_rain_3h',
+ 'Valencia_snow_3h',
+ 'Bilbao_pressure',
+ 'Bilbao_weather_id',
+ 'Valencia_temp_min']]
 
 #fitting the new model
 RF = RandomForestRegressor(n_estimators=100, max_depth=50)
